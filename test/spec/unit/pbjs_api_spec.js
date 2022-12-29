@@ -1810,13 +1810,13 @@ describe('Unit: Prebid Module', function () {
         })
       });
 
-      it('filtering adUnits by adUnitCodes', () => {
+      it('filtering (and ordering) adUnits by adUnitCodes', () => {
         $$PREBID_GLOBAL$$.requestBids({
-          adUnits: [{code: 'one'}, {code: 'two'}],
-          adUnitCodes: 'two'
+          adUnits: [{code: 'three'}, {code: 'one'}, {code: 'two'}],
+          adUnitCodes: ['two','one']
         });
         sinon.assert.calledWith(startAuctionStub, sinon.match({
-          adUnits: [{code: 'two'}]
+          adUnits: [{code: 'two'}, {code: 'two'}]
         }));
       });
 

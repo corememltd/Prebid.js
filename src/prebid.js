@@ -631,7 +631,8 @@ $$PREBID_GLOBAL$$.requestBids = (function() {
     logInfo('Invoking $$PREBID_GLOBAL$$.requestBids', arguments);
     if (adUnitCodes && adUnitCodes.length) {
       // if specific adUnitCodes supplied filter adUnits for those codes
-      adUnits = adUnits.filter(unit => includes(adUnitCodes, unit.code));
+      // but ordered according to adUnitCodes that modules may find helpful
+      adUnits = adUnits && adUnitCodes.map(code => adUnits.find(unit => unit.code == code));
     } else {
       // otherwise derive adUnitCodes from adUnits
       adUnitCodes = adUnits && adUnits.map(unit => unit.code);
